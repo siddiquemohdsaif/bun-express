@@ -35,13 +35,46 @@ bunx cowsay "Hello, world!"
 
 ## HTTP Server in Bun
 
-Bun provides `Bun.serve` for initiating high-performance HTTP servers. It supports native Node.js `http` and `https` modules and frameworks like Express.
+Bun provides its own API, Bun.serve, for initiating high-performance HTTP servers.
 
 ```javascript
 Bun.serve({
-    fetch(req) {
-      return new Response("Bun!");
-    },
+  fetch(req) {
+    return new Response("Bun!");
+  },
+});
+```
+
+Configuration options are available, including listening ports, hostnames, and error handling.
+
+```javascript
+Bun.serve({
+  port: 8080,
+  hostname: "mydomain.com",
+  fetch(req) {
+    return new Response("404!");
+  },
+});
+```
+
+Bun supports the native Node.js http and https modules, as well as popular frameworks like Express. Bun.serve is built on web standards:
+
+```javascript
+import {serve} from 'bun';
+
+serve({
+  async fetch(request) {
+    const body = await request.json();
+    const {headers} = request;
+    const accept = headers.get("Accept");
+    if (accept !== "application/json") {
+      return new Response(
+        "Expected Accept: application/json header",
+        {status: 400}
+      );
+    }
+    return Response.json(body);
+  }
 });
 ```
 
