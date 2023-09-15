@@ -1,71 +1,23 @@
-class Router {
-    constructor() {
-        this.routes = {
-            GET: {},
-            POST: {},
-            PUT: {},
-            DELETE: {}
-        };
-    }
+const { createApp } = require('./lib/bun-express');
 
-    get(path, handler) {
-        this.routes.GET[path] = handler;
-    }
+const app = createApp();
 
-    post(path, handler) {
-        this.routes.POST[path] = handler;
-    }
+// Sample middleware
+app.use((req) => {
+    req.timestamp = Date.now();
+});
 
-    put(path, handler) {
-        this.routes.PUT[path] = handler;
-    }
-
-    delete(path, handler) {
-        this.routes.DELETE[path] = handler;
-    }
-
-    async handleRequest(req) {
-        const method = req.method;
-        const url = new URL(req.url);
-        const handler = this.routes[method][url.pathname];
-        
-        let finalResponse;
-    
-        if (handler) {
-            // Mimic express's req and res objects
-            const response = {
-                send: (content) => {
-                    finalResponse = new Response(content);
-                    return finalResponse;
-                }
-            };
-            await handler(req, response);
-            return finalResponse;
-        } else {
-            return new Response("404 Not Found :" + url.pathname, { status: 404 });
-        }
-    }
-}
-
-const app = new Router();
-
-function startServer(router) {
-    Bun.serve({
-        async fetch(req) {
-            return await router.handleRequest(req);
-        }
-    });
-}
-
+// Routes
 app.get('/', async (req, res) => {
     // Simulate some asynchronous operation
     await new Promise(resolve => setTimeout(resolve, 1000));
-    res.send("data");
+    res.send("Hello from the home page!");
 });
 
 app.get('/ddd', (req, res) => {
-    res.send("data");
+    res.send("Hello from /ddd!" + req.timestamp);
 });
 
-
-startServer(app);
+// Start the server
+const port = 3000;
+app.listen(port, () => console.log(`Server started on port ${port}. Timestamp: ${Date.now()}`));
