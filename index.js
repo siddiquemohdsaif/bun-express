@@ -16,6 +16,15 @@ app.get('/delaySecond', async (req, res) => {
     res.send("Hello from the home page!");
 });
 
+app.post('/json', async (req, res) => {
+    const responseData = {
+        message: "Hello from the home page!",
+        data: "req.body.data"
+    };
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).send(JSON.stringify(responseData));
+});
+
 
 app.get('/users/:userId', (req, res) => {
     const userId = req.params.userId;
@@ -34,7 +43,12 @@ app.get('/pathHandle/*', async (req, res) => {
 });
 
 app.get('/*', (req, res) => {
-    res.send("my custom : 404 not found : " + req.pathname);
+    res.status(404).send("my custom : 404 not found : " + req.path);
+});
+
+
+app.get('/', async (req, res) => {
+    res.send("Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world\n");
 });
 
 // Start the server
