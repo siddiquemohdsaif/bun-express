@@ -1,5 +1,4 @@
 import Option from './lib/Options.js';
-import Option from './lib/Options.js';
 import BunExpress from './lib/bun-express.js';
 
 //const app = BunExpress.createApp(new Option(Option.INSTANCE.MAX, Option.ROUTING_TYPE.LEAST_CONNECTION));
@@ -56,5 +55,5 @@ app.get('/', async (req, res) => {
 });
 
 // Start the server
-const port = 3250;
+const port = 3100;
 app.listen(port, () => console.log(`Server started on port ${port}  proxyPort ${app.proxyPort} . Timestamp: ${Date.now()}`));
