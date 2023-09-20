@@ -10,7 +10,22 @@ BunExpress is currently not available as an npm package. To use it:
 
 ## Usage
 
-### 1. Routes
+Here's a basic example:
+
+```javascript
+import BunExpress from './lib/bun-express.js';
+const app = BunExpress.createApp();
+
+
+app.get('/', async (req, res) => {
+    res.send("Hello world!");
+});
+
+const port = 3000;
+app.listen(port, () => console.log(`Server started on port ${port}.`));
+```
+
+### 2. Routes
 
 With BunExpress, you can define routes using different patterns:
 
@@ -55,7 +70,7 @@ app.get('/test/:id/:name', (req, res) => {
 });
 ```
 
-### 2. Configuration Options
+### 3. Configuration Options
 
 BunExpress provides an `Option` class to configure how your application behaves, especially in clustered environments.
 
