@@ -1,8 +1,11 @@
+import Option from './lib/Options.js';
 import BunExpress from './lib/bun-express.js';
 
-const app = BunExpress.createApp();
+//const app = BunExpress.createApp(new Option(Option.INSTANCE.MAX, Option.ROUTING_TYPE.LEAST_CONNECTION));
+const app = BunExpress.createApp(new Option(1 , Option.ROUTING_TYPE.LEAST_CONNECTION));
 
-// Sample middleware
+
+//Sample middleware
 app.use((req) => {
     req.timestamp = Date.now();
 });
@@ -48,9 +51,9 @@ app.get('/*', (req, res) => {
 
 
 app.get('/', async (req, res) => {
-    res.send("Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world\n");
+    res.send(`Hello world Hello world Hello ${app.proxyPort}`);
 });
 
 // Start the server
-const port = 3000;
-app.listen(port, () => console.log(`Server started on port ${port}. Timestamp: ${Date.now()}`));
+const port = 3250;
+app.listen(port, () => console.log(`Server started on port ${port}  proxyPort ${app.proxyPort} . Timestamp: ${Date.now()}`));
