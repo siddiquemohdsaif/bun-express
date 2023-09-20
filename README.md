@@ -118,7 +118,7 @@ new Option(Option.INSTANCE.MAX, Option.ROUTING_TYPE.LEAST_CONNECTION);
 new Option(Option.INSTANCE.MAX, Option.ROUTING_TYPE.IP_HASH);
 ```
 
-#### iii) Important Notes for Using Nginx
+####  Important Notes for Load Balancing with Nginx
 
 - **Installation**: Ensure Nginx is installed on your machine.
 - **Privileged Access**: To use the Nginx functionality with BunExpress, you'll need to start your application with privileged access. For example:
@@ -127,4 +127,3 @@ new Option(Option.INSTANCE.MAX, Option.ROUTING_TYPE.IP_HASH);
 sudo bun index.js
 ```
 
-Ensure you have the necessary permissions and take necessary precautions when running commands with sudo.
